@@ -1,0 +1,18 @@
+<h1>Library System</h1>
+<p>Welcome, {{ user.username }}! | <form action="{% url 'logout' %}" method="post" style="display:inline;">{% csrf_token %}<button type="submit">Logout</button></form></p>
+
+<a href="{% url 'book_create' %}">Add New Book</a>
+<hr>
+
+<ul>
+    {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }} 
+            (Added by {{ book.added_by.username }})
+            - <a href="{% url 'book_update' book.pk %}">Edit</a>
+            - <a href="{% url 'book_delete' book.pk %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No books in the library yet.</li>
+    {% endfor %}
+</ul>
